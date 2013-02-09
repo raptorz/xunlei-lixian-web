@@ -60,6 +60,7 @@ sudo pip install web.py
 cd ~/download
 python ~/python/xunlei-lixian-web/src/start.py 8180
 </pre>
+
 注：不方便安装git的用户可以选择跳过前两步，在github网页上下载最新的源代码包（选择"Download as zip"或者"Download as tar.gz"）：
 
     https://github.com/raptorz/xunlei-lixian-web/downloads
