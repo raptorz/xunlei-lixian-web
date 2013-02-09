@@ -34,32 +34,32 @@ Quick start
 安装指南
 --------
 
-1. 安装git（非github用户应该只需要执行第一步Download and Install Git）
-
-    http://help.github.com/set-up-git-redirect
-
-2. 下载代码（Windows用户请在git-bash里执行）
-
-    cd ~/python
-    git clone git://github.com/raptorz/xunlei-lixian-web.git
-    cd xunlei-lixian-web/src/
-    git clone git://github.com/iambus/xunlei-lixian.git
-    mv xunlei-lixian lixian
-    touch lixian/__init__.py
-
-3. 安装Python 2.x（请下载最新的2.7版本。3.x版本不支持。）
-
-    http://www.python.org/getit/
-
-4. 安装web.py
-
-    sudo pip install web.py
-
-5. 在命令行里运行
-
-    cd ~/download
-    python ~/python/xunlei-lixian-web/src/start.py 8180
-
+* 安装git（非github用户应该只需要执行第一步Download and Install Git）
+<pre>
+http://help.github.com/set-up-git-redirect
+</pre>
+* 下载代码（Windows用户请在git-bash里执行）
+<pre>
+cd ~/python
+git clone git://github.com/raptorz/xunlei-lixian-web.git
+cd xunlei-lixian-web/src/
+git clone git://github.com/iambus/xunlei-lixian.git
+mv xunlei-lixian lixian
+touch lixian/__init__.py
+</pre>
+* 安装Python 2.x（请下载最新的2.7版本。3.x版本不支持。）
+<pre>
+http://www.python.org/getit/
+</pre>
+* 安装web.py
+<pre>
+sudo pip install web.py
+</pre>
+* 在命令行里运行
+<pre>
+cd ~/download
+python ~/python/xunlei-lixian-web/src/start.py 8180
+</pre>
 注：不方便安装git的用户可以选择跳过前两步，在github网页上下载最新的源代码包（选择"Download as zip"或者"Download as tar.gz"）：
 
     https://github.com/raptorz/xunlei-lixian-web/downloads
