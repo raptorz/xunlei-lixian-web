@@ -38,9 +38,10 @@ var TaskList = Backbone.Collection.extend({
 });
 
 function render_status(tid, state) {
-    var progress_tpl = _.template($("#progress-tpl").html());
-    var completed_tpl= _.template($("#completed-tpl").html());
-    var waiting_tpl  = _.template($("#waiting-tpl").html());
+    var progress_tpl   = _.template($("#progress-tpl").html());
+    var completed_tpl  = _.template($("#completed-tpl").html());
+    var waiting_tpl    = _.template($("#waiting-tpl").html());
+    var downloaded_tpl = _.template($("#downloaded-tpl").html());
     var result = {message:"", op:""};
     switch (state) {
         case 'completed':
