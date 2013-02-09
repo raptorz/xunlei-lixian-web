@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN">
+<head>
+	<meta charset="UTF-8">
+    <title>客户端网页版</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico">
+    <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="js/underscore-min.js"></script>
+    <script type="text/javascript" src="js/backbone-min.js"></script>
+    <script type="text/javascript" src="js/xllxweb.js"></script>
+    <script type="text/template" id="progress-tpl">
+        <div class="progress progress-striped active">
+            <div class="bar" style="width: 100%;"></div>
+        </div>
+    </script>
+    <script type="text/template" id="login_fail-tpl">
+        <div class="alert alert-error">
+          <a class="close" data-dismiss="alert">×</a>
+          <strong>错误！</strong> 登录失败！<br />
+          [${error}]${message}
+        </div>
+    </script>
+    <script type="text/template" id="login-tpl">
+        <form class="form-horizontal">
+            <div id="login_fail" />
+        	<fieldset>
+                <legend>用户登录</legend>
+        		<div class="control-group">
+        			<label for="username" class="control-label">用户名</label>
+                    <div class="controls">
+        			<input type="text" class="input-xlarge" id="username" />
+                    </div>
+        		</div>
+        		<div class="control-group">
+        			<label for="userpass" class="control-label">密码</label>
+                    <div class="controls">
+        			<input type="password" class="input-xlarge" id="userpass" />
+                    </div>
+        		</div>
+                <div class="control-group">
+                    <div class="controls">
+                	<button class="input-xlarge" id="btn_login">提交</button>
+                    </div>
+                </div>
+        	</fieldset>
+        </form>
+    </script>
+    <script type="text/template" id="tasklist-tpl">
+        <table class="table table-bordered table-striped table-condensed table-hover">
+            <thead>
+            <tr>
+            	<th>SN</th>
+            	<th>Name</th>
+                <th><span class="pull-right">Size</span></th>
+            	<th>Status</th>
+            	<th></th>
+            </tr>
+            </thead>
+            ${tasklist}
+        </table>
+    </script>
+    <script type="text/template" id="taskitem-tpl">
+        <tr id="t_${task.get('id')}">
+            <td>${task.get('sn')}</td>
+            <td>${task.get('name')}</td>
+            <td><span class="pull-right">${task.get('size')}</span></td>
+            <td class="item_message">${message}</td>
+            <td class="item_operations">${operations}</td>
+        </tr>
+    </script>
+    <script type="text/template" id="completed-tpl">
+        <button class="item_download" tag="${id}">下载</button>
+        <button class="item_delete" tag="${id}">删除</button>
+    </script>
+    <script type="text/template" id="waiting-tpl">
+        <button class="item_cancel" tag="${id}">取消</button>
+        <button class="item_delete" tag="${id}">删除</button>
+    </script>
+    <script type="text/template" id="downloaded-tpl">
+        <button class="item_delete" tag="${id}">删除</button>
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span12"><h1>客户端网页版</h1>
+<ul class="nav nav-pills">
+  <li class="active">
+    <a href="#/">首页</a>
+  </li>
+  <li><a href="#/logout">退出</a></li>
+</ul>
+            <div id="body" class="row-fluid">
+            </div>
+                <hr>
+                <footer>
+                <p>Copyright &copy; <a href="http://mental.we8log.com">猛禽</a>(<a href="https://twitter.com/raptorz">@raptorz</a>) 2013.<br/>All rights reserved.</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
