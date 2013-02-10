@@ -11,7 +11,6 @@ import os.path
 import web
 from common import error_exc
 from webcommon import WebUnauthorizedError
-from apiserver import APIObjectBase, kwargs_decorator
 
 from lixian.lixian import XunleiClient
 

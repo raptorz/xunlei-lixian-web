@@ -4,3 +4,5 @@
 .hg
 .hgignore
 .hgtags
+lixian
+*.dat
