@@ -25,10 +25,10 @@ def get_config(dbconn, name):
 
 
 def download_all(dbconn):
-    subprocess.call([sys.executable, get_fullname("lixian", "lixian_cli.py"), "config", "username", get_config(dbconn, "username")], shell=False)
-    subprocess.call([sys.executable, get_fullname("lixian", "lixian_cli.py"), "config", "password", get_config(dbconn, "userpass")], shell=False)
     tasks = dbconn.select("task", where="state in ('waiting', 'working')")
     for task in tasks:
+        subprocess.call([sys.executable, get_fullname("lixian", "lixian_cli.py"), "config", "username", get_config(dbconn, "username")], shell=False)
+        subprocess.call([sys.executable, get_fullname("lixian", "lixian_cli.py"), "config", "password", get_config(dbconn, "userpass")], shell=False)
         dbconn.update("task", where="id=$id", vars={"id":task["id"]}, state="working")
         arg = (task['state'] == 'working') and "--continue" or ""
         retcode = subprocess.call([sys.executable, get_fullname("lixian", "lixian_cli.py"), "download", str(task['id']), arg], shell=False)
