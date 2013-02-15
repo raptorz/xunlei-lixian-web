@@ -42,6 +42,7 @@ function render_status(tid, state) {
     var completed_tpl  = _.template($("#completed-tpl").html());
     var waiting_tpl    = _.template($("#waiting-tpl").html());
     var downloaded_tpl = _.template($("#downloaded-tpl").html());
+    var error_tpl      = _.template($("#error-tpl").html());
     var result = {message:"", op:""};
     switch (state) {
         case 'completed':
@@ -63,6 +64,10 @@ function render_status(tid, state) {
         case 'downloaded':
             result.op = downloaded_tpl({id:tid});
             result.message = "已完成本地下载";
+            break;
+        case 'error':
+            result.op = error_tpl({id:tid});
+            result.message = "下载出错请重试";
             break;
         default:
             result.op = progress_tpl();
@@ -87,7 +92,8 @@ var TaskListView = Backbone.View.extend({
     events: {
         'click button.item_cancel'  : 'item_cancel',
         'click button.item_download': 'item_download',
-        'click button.item_delete'  : 'item_delete'
+        'click button.item_delete'  : 'item_delete',
+        'click button.item_reset'   : 'item_reset',
     },
     render_task: function (task) {
         var v = new TaskView();
@@ -117,6 +123,14 @@ var TaskListView = Backbone.View.extend({
         var task = this.tasklist.get($(e.currentTarget).attr('tag'));
         task.destroy({error: function (task, error) {
             alert(error.statusText);
+        }});
+    },
+    item_reset: function(e) {
+        var task = this.tasklist.get($(e.currentTarget).attr('tag'));
+        var old_state = task.get('state');
+        task.save({state:"working"}, {error: function (task, error) {
+            alert(error.statusText);
+            task.set({state:old_state});
         }});
     }
 });

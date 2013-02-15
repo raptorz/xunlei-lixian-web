@@ -65,6 +65,7 @@ class Task(APIHandler):
     STATE_WAITING    = "waiting"
     STATE_WORKING    = "working"
     STATE_DOWNLOADED = "downloaded"
+    STATE_ERROR      = "error"
     
     def GET_(self, rid=""):
         if rid == "":
@@ -91,6 +92,8 @@ class Task(APIHandler):
             task = tasks[0]
             if task['state'] == self.STATE_WORKING and kwargs['state'] == self.STATE_COMPLETED:
                 self._provider.dbconn.delete("task", where="id=$id", vars={"id":rid})
+            elif task['state'] == self.STATE_ERROR and kwargs['state'] == self.STATE_WORKING:
+                self._provider.dbconn.update("task", where="id=$id", vars={"id":rid}, state=kwargs['state'])
             else:
                 raise WebInternalError("Invalid operation!")
         else:

@@ -2,7 +2,7 @@
 <html lang="zh_CN">
 <head>
 	<meta charset="UTF-8">
-    <title>客户端网页版</title>
+    <title>迅雷离线下载脚本网页版</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="favicon.ico">
     <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
@@ -80,11 +80,14 @@
     <script type="text/template" id="downloaded-tpl">
         <button class="item_delete" tag="${id}">删除</button>
     </script>
+    <script type="text/template" id="error-tpl">
+        <button class="item_reset" tag="${id}">重试</button>
+    </script>
 </head>
 <body>
     <div class="container">
         <div class="row-fluid">
-            <div class="span12"><h1>客户端网页版</h1>
+            <div class="span12"><h1>迅雷离线下载脚本网页版</h1>
 <ul class="nav nav-pills">
   <li class="active">
     <a href="#/">首页</a>
