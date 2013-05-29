@@ -11,15 +11,16 @@ Quick start
 -----------
 
     cd ~/download
-    python ~/python/xunlei-lixian-web/src/start.py 8180
+    python ~/python/xunlei-lixian-web/src/start.py
 
 用浏览器打开：
 
-    http://localhost:8180  --  本机
+    http://localhost:8180/xunlei  --  本机
 
 或
 
-    http://xxx.xxx.xxx.xxx:8180  --  IP为xxx.xxx.xxx.xxx的下载主机
+    http://xxx.xxx.xxx.xxx:8180/xunlei  --  IP为xxx.xxx.xxx.xxx的下载主机
+
 
 网页只提供以下几个基本功能：
 
@@ -43,27 +44,24 @@ http://help.github.com/set-up-git-redirect
 cd ~/python
 git clone git://github.com/raptorz/xunlei-lixian-web.git
 cd xunlei-lixian-web/src/
-git clone git://github.com/iambus/xunlei-lixian.git
-mv xunlei-lixian lixian
+git clone git://github.com/iambus/xunlei-lixian.git lixian
 touch lixian/__init__.py
 </pre>
-* 安装Python 2.x（请下载最新的2.7版本。3.x版本不支持。）
+* 安装Python 2.x（请下载最新的2.7版本。3.x版本暂不支持。）
 <pre>
 http://www.python.org/getit/
 </pre>
-* 安装web.py
+* 安装bottle，sqlalchemy和bottle-sqlalchemy
 <pre>
-sudo pip install web.py
+sudo pip install bottle
+sudo pip install sqlalchemy
+sudo pip install bottle-sqlalchemy
 </pre>
 * 在命令行里运行
 <pre>
 cd ~/download
-python ~/python/xunlei-lixian-web/src/start.py 8180
+python ~/python/xunlei-lixian-web/src/start.py
 </pre>
-
-注：不方便安装git的用户可以选择跳过前两步，在github网页上下载最新的源代码包（选择"Download as zip"或者"Download as tar.gz"）：
-
-    https://github.com/raptorz/xunlei-lixian-web/downloads
 
 
 一些提示
@@ -71,8 +69,10 @@ python ~/python/xunlei-lixian-web/src/start.py 8180
 
 1. 你可以创建一个启动脚本让它在开机的时候启动，具体方法视操作系统而定，这里不提供。
 1. 你可以使用离线脚本自身的配置功能来指定下载文件的存放路径。详见原项目文档。
-1. 我只在FreeBSD/Ubuntu/MacOSX三个系统下试过，基本上没啥问题。浏览器只试过FireFox和Chrome。Windows用户建议还是去用官方客户端吧。
-1. FreeBSD用户要注意，离线脚本默认使用的是wget，需要单独安装（FreeBSD默认的下载工具是fetch）。另外，要修改shell的默认编码方式为UTF-8，否则可能下载出错（如果碰到非英文文件名的话）。
+1. 我只在FreeBSD/Ubuntu/MacOSX三个系统下试过，基本上没啥问题。Windows用户建议还是去用官方客户端吧。
+1. 浏览器只试过FireFox和Chrome。
+1. FreeBSD用户要注意，离线脚本默认使用的是wget，需要单独安装（Linux一般默认自带wget，FreeBSD默认的下载工具是fetch），或者参考离线脚本的官方说明使用其它下载工具（比如aria2）。
+1. 另外，FreeBSD要修改shell的默认编码方式为UTF-8，否则可能下载出错（如果碰到非英文文件名的话）。
 
 
 许可协议
@@ -82,4 +82,3 @@ xunlei-lixian-web使用MIT许可协议。
 
 此文档未完成。
 --------------
-

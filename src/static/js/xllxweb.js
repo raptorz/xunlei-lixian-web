@@ -3,11 +3,11 @@ _.templateSettings = {
 };
 
 var Login = Backbone.Model.extend({
-    urlRoot: "/login",
+    urlRoot: "/xunlei/login",
 });
 
 var Task = Backbone.Model.extend({
-    urlRoot: "/task",
+    urlRoot: "/xunlei/task",
     initialize: function () {
         this.on("change:state", this.onStateChange);
         this.on("destroy", this.onRemove);
@@ -25,7 +25,7 @@ var Task = Backbone.Model.extend({
 });
 
 var TaskList = Backbone.Collection.extend({
-    url: "/task",
+    url: "/xunlei/task",
     model: Task,
     initialize: function () {
         this.bind("reset", this.showView);
@@ -156,8 +156,10 @@ var LoginView = Backbone.View.extend({
                     window.location.href = "#/";
                 },
                 error: function (login, error) {
+                    var msg = "用户名或密码错误！";
+                    alert(msg);
                     $("#login_fail").html(_.template($("#login_fail-tpl").html(),
-                            {error: error.statusText, message:"用户名或密码错误！"}));
+                            {error: error.statusText, message:msg}));
                 }
             });
         }
@@ -185,6 +187,7 @@ var AppRouter = Backbone.Router.extend({
     logout: function() {
         var l = new Login();
         l.save({username:"-", userpass:"-"});
+        window.location.href = "#/";
     },
     login: function() {
         var v = new LoginView({el: $("#body")});

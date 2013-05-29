@@ -8,39 +8,36 @@
 import sys
 import subprocess
 import time
-import web
 
-from apiprovider import get_fullname
+from model import *
 
 import logging
 
 logger = logging.getLogger(__name__)
 
 
-def get_config(dbconn, name):
-    r = dbconn.select('config', where='key=$key', vars={'key':name}).list()
-    if len(r) == 0:
-        return ""
-    return r[0]['value']
-
-
-def download_all(dbconn):
-    tasks = dbconn.select("task", where="state in ('waiting', 'working')")
+def download_all(orm):
+    tasks = Task._get_incomp(orm)
     for task in tasks:
-        subprocess.call([sys.executable, get_fullname("lixian", "lixian_cli.py"), "config", "username", get_config(dbconn, "username")], shell=False)
-        subprocess.call([sys.executable, get_fullname("lixian", "lixian_cli.py"), "config", "password", get_config(dbconn, "userpass")], shell=False)
-        dbconn.update("task", where="id=$id", vars={"id":task["id"]}, state="working")
-        arg = (task['state'] == 'working') and "--continue" or ""
-        retcode = subprocess.call([sys.executable, get_fullname("lixian", "lixian_cli.py"), "download", str(task['id']), arg], shell=False)
+        username = Config._get_value(orm, "username")
+        userpass = Config._get_value(orm, "userpass")
+        if len(username) < 2 or len(userpass) < 2:
+            return
+        logger.debug("%s/%s" % (username, userpass))
+        subprocess.call([sys.executable, get_fullname("lixian", "lixian_cli.py"), "config", "username", username], shell=False)
+        subprocess.call([sys.executable, get_fullname("lixian", "lixian_cli.py"), "config", "password", userpass], shell=False)
+        Task._update(orm, task.id, dict(state=STATE_WORKING))
+        arg = (task.state == STATE_WORKING) and "--continue" or ""
+        retcode = subprocess.call([sys.executable, get_fullname("lixian", "lixian_cli.py"), "download", str(task.id), arg], shell=False)
         state = (retcode == 0) and 'downloaded' or 'error'
-        dbconn.update("task", where="id=$id", vars={"id":task["id"]}, state=state)
+        Task._update(orm, task.id, dict(state=state))
 
 
 if __name__ == "__main__":
+    from sqlalchemy.orm import scoped_session, sessionmaker
     import logging
     logging.basicConfig(level=logging.DEBUG)
-    db = get_fullname("xllxweb.dat")
-    dbconn = web.database(dbn='sqlite', db=db)
+    orm = scoped_session(sessionmaker(bind=engine))
     while True:
-        download_all(dbconn)
+        download_all(orm)
         time.sleep(30)

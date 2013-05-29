@@ -1,2 +1,4 @@
-web.py
+bottle
+sqlalchemy
+bottle-sqlalchemy
 xunlei-lixian
