@@ -23,7 +23,6 @@ def download_all(orm):
         userpass = Config._get_value(orm, "userpass")
         if len(username) < 2 or len(userpass) < 2:
             return
-        logger.debug("%s/%s" % (username, userpass))
         subprocess.call([sys.executable, get_fullname("lixian", "lixian_cli.py"), "config", "username", username], shell=False)
         subprocess.call([sys.executable, get_fullname("lixian", "lixian_cli.py"), "config", "password", userpass], shell=False)
         Task._update(orm, task.id, dict(state=STATE_WORKING))

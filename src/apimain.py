@@ -8,6 +8,7 @@
     revision: 20130525 bottle.py
 """
 import bottle
+from bottle.ext import sqlalchemy
 
 try:
     import json
@@ -16,7 +17,6 @@ except ImportError:
 
 from model import *
 from common import error_exc, DataRow
-from apiprovider import WebInternalError, get_plugin, get_client
 
 from lixian.lixian import XunleiClient
 
@@ -35,7 +35,7 @@ class WebInternalError(bottle.HTTPError):
 
 
 def get_plugin():
-    return bottle.ext.sqlalchemy.Plugin(engine, metadata, keyword='orm')
+    return sqlalchemy.Plugin(engine, metadata, keyword='orm')
 
 
 def auth_check(r):
