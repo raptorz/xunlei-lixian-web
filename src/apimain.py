@@ -101,12 +101,12 @@ def task_list(orm):
     return json.dumps(result)
 
 
-@app.get("/task/<id:int>")
+@app.get("/task/<id>")
 def task_item(orm, id):
     return DataRow(Task._get(orm, id))
 
 
-@app.put("/task/<id:int>")
+@app.put("/task/<id>")
 def task_update(orm, id):
     kwargs = bottle.request.json
     task = Task._get(orm, id)
@@ -125,11 +125,11 @@ def task_update(orm, id):
     return ""
 
 
-@app.delete("/task/<id:int>")
-def task_delete():
+@app.delete("/task/<id>")
+def task_delete(orm, id):
     task = Task._get(orm, id)
     if task:
-        if task['state'] != STATE_WORKING:
+        if task.state != STATE_WORKING:
             Task._delete(orm, id)
         else:
             raise WebInternalError("Invalid operation!")

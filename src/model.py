@@ -96,7 +96,7 @@ class Task(Base):
         return r
 
     @staticmethod
-    def _detete(orm, id):
+    def _delete(orm, id):
         r = Task._get(orm, id)
         orm.delete(r)
         orm.commit()
