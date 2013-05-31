@@ -68,7 +68,7 @@ def static(filename):
 
 @app.get("/")
 def index():
-    bottle.redirect("static/index.html")
+    return bottle.static_file("index.html", root=get_fullname("static"))
 
 
 @app.post("/login")
