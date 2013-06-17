@@ -27,5 +27,5 @@ if __name__ == "__main__":
     import subprocess
     svc = subprocess.Popen([sys.executable, get_fullname("service.py")], shell=False)
     os.chdir(get_fullname(""))
-    run(application, host="0.0.0.0", port=8180, debug=False)
+    run(application, host="0.0.0.0", port=8180, debug=True)
     svc.terminate()
