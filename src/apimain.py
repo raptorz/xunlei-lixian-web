@@ -31,7 +31,7 @@ class WebUnauthorizedError(bottle.HTTPError):
 
 class WebInternalError(bottle.HTTPError):
     def __init__(self, msg):
-        super(WebInternalError, self).HTTPError.__init__(500, msg or "Internal error!")
+        super(WebInternalError, self).__init__(500, msg or "Internal error!")
 
 
 def get_plugin():
@@ -68,7 +68,7 @@ def static(filename):
 
 @app.get("/")
 def index():
-    bottle.redirect("static/index.html")
+    return bottle.static_file("index.html", root=get_fullname("static"))
 
 
 @app.post("/login")
@@ -93,7 +93,7 @@ def task_list(orm):
     result = []
     for task in remote_tasks:
         state = task['status_text']
-        tid = int(task['id'])
+        tid = task['id']
         if tid in working_index.keys():
             state = working_index[tid].state
         result.append(DataRow(dict(id=task['id'], sn=task["#"], name=task['name'],
@@ -111,9 +111,9 @@ def task_update(orm, id):
     kwargs = bottle.request.json
     task = Task._get(orm, id)
     if task:
-        if task['state'] == STATE_WORKING and kwargs['state'] == STATE_COMPLETED:
+        if task.state == STATE_WORKING and kwargs['state'] == STATE_COMPLETED:
             Task._delete(orm, id)
-        elif task['state'] == STATE_ERROR and kwargs['state'] == STATE_WORKING:
+        elif task.state == STATE_ERROR and kwargs['state'] == STATE_WORKING:
             Task._update(orm, id, dict(state=kwargs['state']))
         else:
             raise WebInternalError("Invalid operation!")

@@ -5,10 +5,12 @@
     powered by bottle.py
 
     :copyright: 20130118 by raptor.zh@gmail.com.
-    revision: 20130525 bottle.py
+    revision:   20130525 bottle.py
+                20141010 bottle 0.12+
 """
 import sys
 import os
+import bottle
 from bottle import Bottle, run
 
 from model import get_fullname
@@ -19,7 +21,11 @@ import logging
 logger = logging.getLogger(__name__)
 
 application = Bottle()
-application.mount(app, "/xunlei")
+v = bottle.__version__.split(".")
+if v[0]=="0" and v[1]<"12":
+    application.mount(app, "/xunlei")
+else:
+    application.mount("/xunlei", app)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
@@ -27,5 +33,5 @@ if __name__ == "__main__":
     import subprocess
     svc = subprocess.Popen([sys.executable, get_fullname("service.py")], shell=False)
     os.chdir(get_fullname(""))
-    run(application, host="0.0.0.0", port=8180, debug=False)
+    run(application, host="0.0.0.0", port=8180, debug=True)
     svc.terminate()

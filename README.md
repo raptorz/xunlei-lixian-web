@@ -10,7 +10,9 @@ xunlei-lixian-web
 Quick start
 -----------
 
-    cd ~/download
+假设已完成后面所说的安装步骤，程序文件存放在：~/python/xunlei-lixian-web，下载的文件存放位置在：~/download，使用方法如下：
+
+    cd ~/download  
     python ~/python/xunlei-lixian-web/src/start.py
 
 用浏览器打开：
@@ -45,7 +47,7 @@ cd ~/python
 git clone git://github.com/raptorz/xunlei-lixian-web.git
 cd xunlei-lixian-web/src/
 git clone git://github.com/iambus/xunlei-lixian.git lixian
-touch lixian/__init__.py
+touch lixian/\__init__.py
 </pre>
 * 安装Python 2.x（请下载最新的2.7版本。3.x版本暂不支持。）
 <pre>
@@ -57,12 +59,15 @@ sudo pip install bottle
 sudo pip install sqlalchemy
 sudo pip install bottle-sqlalchemy
 </pre>
+
 * 在命令行里运行
 <pre>
 cd ~/download
+python ~/python/xunlei-lixian-web/src/model.py
 python ~/python/xunlei-lixian-web/src/start.py
 </pre>
 
+####注意：上面第二句仅用于在第一次运行时创建数据库，以后重新启动程序不需要第二句。（感谢 turygo, goxofy, zhasm 提醒）
 
 一些提示
 --------
@@ -74,6 +79,11 @@ python ~/python/xunlei-lixian-web/src/start.py
 1. FreeBSD用户要注意，离线脚本默认使用的是wget，需要单独安装（Linux一般默认自带wget，FreeBSD默认的下载工具是fetch），或者参考离线脚本的官方说明使用其它下载工具（比如aria2）。
 1. 另外，FreeBSD要修改shell的默认编码方式为UTF-8，否则可能下载出错（如果碰到非英文文件名的话）。
 
+
+Change log
+----------
+
+* 修复在bottle 0.12及以上版本运行出错的bug。（感谢zhasm提醒）
 
 许可协议
 --------
